@@ -7,7 +7,7 @@ export const envs = {
 };
 
 export const JWT_TOKEN_KEY = {
-  JWT_TOKEN_TEST: get("JWT_TOKEN_TEST").asString() || "TOKENprueba123123123",
+  ACCESS: get("JWT_TOKEN_TEST").asString() || "TOKENprueba123123123",
   //SE PUEDEN AÑADIR MAS
 };
 
