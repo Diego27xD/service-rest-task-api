@@ -54,6 +54,7 @@ model TSK_TASK {
   tsk_description String?
   tsk_createdAt   DateTime     @default(now())
   tsk_updatedAt   DateTime     @default(now())
+  tsk_duedate     DateTime?
   tsk_userId      Int
   tsk_categoryId  Int
   tsk_statusId    Int
