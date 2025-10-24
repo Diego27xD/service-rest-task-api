@@ -52,7 +52,6 @@ model TSK_TASK {
   tsk_idtask      Int          @id @default(autoincrement())
   tsk_title       String
   tsk_description String?
-  tsk_duedate     DateTime?
   tsk_createdAt   DateTime     @default(now())
   tsk_updatedAt   DateTime     @default(now())
   tsk_userId      Int
