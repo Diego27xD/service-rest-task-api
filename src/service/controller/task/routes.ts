@@ -17,6 +17,8 @@ export class TaskRouter {
     router.put("/:id", taskController.updateTask);
     router.delete("/:id", taskController.deleteTask);
 
+    router.get("/user/:id", taskController.getListTasksByUser);
+
     return router;
   }
 }
