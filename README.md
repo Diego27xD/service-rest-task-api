@@ -10,7 +10,7 @@ El sistema permite crear, listar, actualizar y eliminar tareas, así como autent
 - **Node.js + Express**
 - **TypeScript**
 - **Prisma ORM**
-- **MySQL**
+- **Postgres**
 - **JWT (JSON Web Token)** para autenticación
 - **bcryptjs** para encriptación de contraseñas
 - **Zod / class-validator** (opcional) para validación de datos
