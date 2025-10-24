@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { prisma } from "../../config/envs";
 import { TaskCreateDTO } from "../../DTO/task.create.dto";
 import { TaskDTO } from "../../DTO/task.dto";
@@ -17,18 +18,23 @@ export class TaskSourceImpl implements TaskRepository<TaskDTO> {
           tsk_description: true,
           tsk_duedate: true,
           tsk_createdAt: true,
+          tsk_updatedAt: true,
           tsk_user: { select: { usr_fullname: true } },
           tsk_category: { select: { ctg_description: true } },
           tsk_status: { select: { stt_description: true } },
           tsk_priority: { select: { prt_description: true } },
         },
+        orderBy: [{ tsk_statusId: "asc" }, { tsk_createdAt: "desc" }],
       });
 
       return result.map((item) => {
         return {
           IdTarea: item.tsk_idtask,
           descripcion: item.tsk_description!,
-          fechaTermino: item.tsk_duedate!,
+          fechaTermino:
+            item.tsk_status.stt_description == "Completado"
+              ? format(item.tsk_updatedAt, "yyyy-MM-dd")
+              : "",
           fechaCreacion: item.tsk_createdAt,
           titulo: item.tsk_title,
           nombreUsuario: item.tsk_user.usr_fullname,
@@ -50,18 +56,23 @@ export class TaskSourceImpl implements TaskRepository<TaskDTO> {
           tsk_description: true,
           tsk_duedate: true,
           tsk_createdAt: true,
+          tsk_updatedAt: true,
           tsk_user: { select: { usr_fullname: true } },
           tsk_category: { select: { ctg_description: true } },
           tsk_status: { select: { stt_description: true } },
           tsk_priority: { select: { prt_description: true } },
         },
+        orderBy: [{ tsk_statusId: "asc" }, { tsk_createdAt: "desc" }],
       });
 
       return result.map((item) => {
         return {
           IdTarea: item.tsk_idtask,
           descripcion: item.tsk_description!,
-          fechaTermino: item.tsk_duedate!,
+          fechaTermino:
+            item.tsk_status.stt_description == "Completado"
+              ? format(item.tsk_updatedAt, "yyyy-MM-dd")
+              : "",
           fechaCreacion: item.tsk_createdAt,
           titulo: item.tsk_title,
           nombreUsuario: item.tsk_user.usr_fullname,
@@ -80,7 +91,6 @@ export class TaskSourceImpl implements TaskRepository<TaskDTO> {
         data: {
           tsk_title: modelCreateDto.titulo,
           tsk_description: modelCreateDto.descripcion,
-          tsk_duedate: modelCreateDto.fechaTermino,
           tsk_categoryId: modelCreateDto.IdCategoria,
           tsk_priorityId: modelCreateDto.IdPrioridad,
           tsk_statusId: modelCreateDto.IdStatus,
@@ -90,8 +100,8 @@ export class TaskSourceImpl implements TaskRepository<TaskDTO> {
           tsk_idtask: true,
           tsk_title: true,
           tsk_description: true,
-          tsk_duedate: true,
           tsk_createdAt: true,
+          tsk_updatedAt: true,
           tsk_user: { select: { usr_fullname: true } },
           tsk_category: { select: { ctg_description: true } },
           tsk_status: { select: { stt_description: true } },
@@ -102,15 +112,19 @@ export class TaskSourceImpl implements TaskRepository<TaskDTO> {
       return {
         IdTarea: result.tsk_idtask,
         descripcion: result.tsk_description!,
-        fechaTermino: result.tsk_duedate!,
         fechaCreacion: result.tsk_createdAt,
         titulo: result.tsk_title,
         nombreUsuario: result.tsk_user.usr_fullname,
         estatus: result.tsk_status.stt_description,
         nombreCategoria: result.tsk_category.ctg_description,
         prioridad: result.tsk_priority.prt_description,
+        fechaTermino:
+          result.tsk_status.stt_description == "Completado"
+            ? format(result.tsk_updatedAt, "yyyy-MM-dd")
+            : "",
       };
     } catch (error) {
+      console.log(error);
       throw error;
     }
   }
@@ -123,6 +137,7 @@ export class TaskSourceImpl implements TaskRepository<TaskDTO> {
           tsk_title: true,
           tsk_description: true,
           tsk_duedate: true,
+          tsk_updatedAt: true,
           tsk_createdAt: true,
           tsk_user: { select: { usr_fullname: true } },
           tsk_category: { select: { ctg_description: true } },
@@ -136,7 +151,10 @@ export class TaskSourceImpl implements TaskRepository<TaskDTO> {
       return {
         IdTarea: result.tsk_idtask,
         descripcion: result.tsk_description!,
-        fechaTermino: result.tsk_duedate!,
+        fechaTermino:
+          result.tsk_status.stt_description == "Completado"
+            ? format(result.tsk_updatedAt, "yyyy-MM-dd")
+            : "",
         fechaCreacion: result.tsk_createdAt,
         titulo: result.tsk_title,
         nombreUsuario: result.tsk_user.usr_fullname,
@@ -158,7 +176,6 @@ export class TaskSourceImpl implements TaskRepository<TaskDTO> {
         data: {
           tsk_title: modelUpdateDto.titulo,
           tsk_description: modelUpdateDto.descripcion,
-          tsk_duedate: modelUpdateDto.fechaTermino,
           tsk_categoryId: modelUpdateDto.IdCategoria,
           tsk_priorityId: modelUpdateDto.IdPrioridad,
           tsk_statusId: modelUpdateDto.IdStatus,
@@ -171,6 +188,7 @@ export class TaskSourceImpl implements TaskRepository<TaskDTO> {
           tsk_description: true,
           tsk_duedate: true,
           tsk_createdAt: true,
+          tsk_updatedAt: true,
           tsk_user: { select: { usr_fullname: true } },
           tsk_category: { select: { ctg_description: true } },
           tsk_status: { select: { stt_description: true } },
@@ -181,7 +199,10 @@ export class TaskSourceImpl implements TaskRepository<TaskDTO> {
       return {
         IdTarea: result.tsk_idtask,
         descripcion: result.tsk_description!,
-        fechaTermino: result.tsk_duedate!,
+        fechaTermino:
+          result.tsk_status.stt_description == "Completado"
+            ? format(result.tsk_updatedAt, "yyyy-MM-dd")
+            : "",
         fechaCreacion: result.tsk_createdAt,
         titulo: result.tsk_title,
         nombreUsuario: result.tsk_user.usr_fullname,
@@ -203,6 +224,7 @@ export class TaskSourceImpl implements TaskRepository<TaskDTO> {
           tsk_description: true,
           tsk_duedate: true,
           tsk_createdAt: true,
+          tsk_updatedAt: true,
           tsk_user: { select: { usr_fullname: true } },
           tsk_category: { select: { ctg_description: true } },
           tsk_status: { select: { stt_description: true } },
@@ -213,7 +235,10 @@ export class TaskSourceImpl implements TaskRepository<TaskDTO> {
       return {
         IdTarea: result.tsk_idtask,
         descripcion: result.tsk_description!,
-        fechaTermino: result.tsk_duedate!,
+        fechaTermino:
+          result.tsk_status.stt_description == "Completado"
+            ? format(result.tsk_updatedAt, "yyyy-MM-dd")
+            : "",
         fechaCreacion: result.tsk_createdAt,
         titulo: result.tsk_title,
         nombreUsuario: result.tsk_user.usr_fullname,

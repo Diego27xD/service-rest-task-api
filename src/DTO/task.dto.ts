@@ -2,7 +2,7 @@ export interface TaskDTO {
   IdTarea: number;
   titulo: string;
   descripcion: string;
-  fechaTermino: Date;
+  fechaTermino: string;
   fechaCreacion: Date;
   nombreUsuario: string;
   nombreCategoria: string;
