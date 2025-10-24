@@ -39,6 +39,7 @@ export class UserService {
         tokenAccess,
         usuario: user.usuario,
         nombreCompleto: user.nombreCompleto,
+        IdUser: user.IdUsuario,
       };
     } catch (error) {
       throw error;
@@ -71,5 +72,23 @@ export class UserService {
     } catch (error) {
       throw error;
     }
+  }
+
+  async validAuth(IdUser: number) {
+    try {
+      const user = await this.userRepository.getById(IdUser);
+      if (!user) throw TypeError.notFound("Lo siento, el usuario no existe.");
+      const objJWT = new JWTUtil(JWT_TOKEN_KEY.ACCESS);
+      const tokenAccess = await objJWT.generateToken(
+        { user: user.IdUsuario },
+        "6h"
+      );
+      return {
+        tokenAccess,
+        usuario: user.usuario,
+        nombreCompleto: user.nombreCompleto,
+        IdUser: user.IdUsuario,
+      };
+    } catch (error) {}
   }
 }

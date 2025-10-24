@@ -32,4 +32,21 @@ export class UserController {
         CustomError.responseError(err, res, "Error al crear nueva cuenta")
       );
   };
+
+  public validAuth = (req: Request, res: Response) => {
+    const { user } = req.body;
+    this.userService
+      .validAuth(user)
+      .then((result) =>
+        CustomResponse.responseSuccess(
+          200,
+          result,
+          res,
+          "Cuenta creada con éxito"
+        )
+      )
+      .catch((err) =>
+        CustomError.responseError(err, res, "Error al crear nueva cuenta")
+      );
+  };
 }
