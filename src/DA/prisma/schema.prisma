@@ -13,16 +13,54 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Empresa {
-  IdEmpresa     Int      @id @default(autoincrement()) @map("id")
-  nombreEmpresa String
-  fechaCreacion DateTime @default(now())
-  local         Local[]
+model TSK_USER {
+  usr_idusuario Int        @id @default(autoincrement())
+  usr_fullname  String
+  usr_password  String
+  usr_user      String
+  usr_createdAt DateTime   @default(now())
+  usr_updatedAt DateTime   @default(now())
+  usr_tasks     TSK_TASK[]
 }
 
-model Local {
-  IdLocal     Int     @id @default(autoincrement()) @map("id")
-  nombreLocal String
-  IdEmpresa   Int     @map("empresaId")
-  empresa     Empresa @relation(fields: [IdEmpresa], references: [IdEmpresa])
+model TSK_CATEGORY {
+  ctg_idcategory  Int        @id @default(autoincrement())
+  ctg_description String
+  ctg_color       String
+  ctg_createdAt   DateTime   @default(now())
+  ctg_updatedAt   DateTime   @default(now())
+  ctg_tasks       TSK_TASK[]
+}
+
+model TSK_STATUS {
+  stt_idstatus    Int        @id @default(autoincrement())
+  stt_description String
+  stt_createdAt   DateTime   @default(now())
+  stt_updatedAt   DateTime   @default(now())
+  stt_tasks       TSK_TASK[]
+}
+
+model TSK_PRIORITY {
+  prt_idpriority  Int        @id @default(autoincrement())
+  prt_description String
+  prt_createdAt   DateTime   @default(now())
+  prt_updatedAt   DateTime   @default(now())
+  prt_tasks       TSK_TASK[]
+}
+
+model TSK_TASK {
+  tsk_idtask      Int          @id @default(autoincrement())
+  tsk_title       String
+  tsk_description String?
+  tsk_duedate     DateTime?
+  tsk_createdAt   DateTime     @default(now())
+  tsk_updatedAt   DateTime     @default(now())
+  tsk_userId      Int
+  tsk_categoryId  Int
+  tsk_statusId    Int
+  tsk_priorityId  Int
+  tsk_user        TSK_USER     @relation(fields: [tsk_userId], references: [usr_idusuario])
+  tsk_category    TSK_CATEGORY @relation(fields: [tsk_categoryId], references: [ctg_idcategory])
+  tsk_status      TSK_STATUS   @relation(fields: [tsk_statusId], references: [stt_idstatus])
+  tsk_priority    TSK_PRIORITY @relation(fields: [tsk_priorityId], references: [prt_idpriority])
 }
