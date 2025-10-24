@@ -139,6 +139,9 @@ export class TaskSourceImpl implements TaskRepository<TaskDTO> {
           tsk_duedate: true,
           tsk_updatedAt: true,
           tsk_createdAt: true,
+          tsk_categoryId: true,
+          tsk_priorityId: true,
+          tsk_statusId: true,
           tsk_user: { select: { usr_fullname: true } },
           tsk_category: { select: { ctg_description: true } },
           tsk_status: { select: { stt_description: true } },
@@ -161,6 +164,9 @@ export class TaskSourceImpl implements TaskRepository<TaskDTO> {
         estatus: result.tsk_status.stt_description,
         nombreCategoria: result.tsk_category.ctg_description,
         prioridad: result.tsk_priority.prt_description,
+        IdCategoria: result.tsk_categoryId,
+        IdPrioridad: result.tsk_categoryId,
+        IdStatus: result.tsk_statusId,
       };
     } catch (error) {
       throw error;
