@@ -2,6 +2,7 @@ import { Router } from "express";
 import { UserSourceImpl } from "../../../DA/datasource/userDA.impl";
 import { UserService } from "../../../BL/userBL";
 import { UserController } from "./controller";
+import { AuthMiddleware } from "../../../middleware/auth.middleware";
 
 export class UserRouter {
   static get routes(): Router {
@@ -13,6 +14,11 @@ export class UserRouter {
     router.post("/login", userController.authLogin);
     router.post("/register", userController.authRegister);
 
+    router.post(
+      "/valid-auth",
+      AuthMiddleware.ValidateJWT,
+      userController.validAuth
+    );
     return router;
   }
 }

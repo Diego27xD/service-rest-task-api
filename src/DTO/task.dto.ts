@@ -8,4 +8,8 @@ export interface TaskDTO {
   nombreCategoria: string;
   estatus: string;
   prioridad: string;
+
+  IdCategoria?: number;
+  IdStatus?: number;
+  IdPrioridad?: number;
 }
