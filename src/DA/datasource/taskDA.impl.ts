@@ -138,6 +138,7 @@ export class TaskSourceImpl implements TaskRepository<TaskDTO> {
           tsk_description: true,
           tsk_duedate: true,
           tsk_updatedAt: true,
+
           tsk_createdAt: true,
           tsk_categoryId: true,
           tsk_priorityId: true,
