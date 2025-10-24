@@ -17,7 +17,7 @@ El sistema permite crear, listar, actualizar y eliminar tareas, así como autent
 
 ---
 
-## 🧩 Arquitectura del Proyecto: A
+## 🧩 Arquitectura del Proyecto: Arquitectura en capas
 
 - **DATA ACCESS (DA):**  
   Define las **interfaces de repositorio** que especifican las operaciones que deben implementarse para interactuar con las entidades.
