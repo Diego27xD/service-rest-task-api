@@ -19,6 +19,18 @@ export class TaskController {
       );
   };
 
+  public getListTasksByUser = (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    this.taskService
+      .getAllTasksByUser(id)
+      .then((result) =>
+        CustomResponse.responseSuccess(200, result, res, "Lista encontrada")
+      )
+      .catch((err) =>
+        CustomError.responseError(err, res, "Error al consultar data")
+      );
+  };
+
   public getTaskById = (req: Request, res: Response) => {
     const id = Number(req.params.id);
 
